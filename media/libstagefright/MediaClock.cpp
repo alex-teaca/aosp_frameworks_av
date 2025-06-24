@@ -97,8 +97,18 @@ void MediaClock::updateAnchor(
 
     Mutex::Autolock autoLock(mLock);
     int64_t nowUs = ALooper::GetNowUs();
-    int64_t nowMediaUs =
-        anchorTimeMediaUs + (nowUs - anchorTimeRealUs) * (double)mPlaybackRate;
+    double nowMediaUsDouble =
+	    anchorTimeMediaUs + (nowUs - anchorTimeRealUs) * (double)mPlaybackRate;
+
+    int64_t nowMediaUs;
+
+    if (nowMediaUsDouble < (double)std::numeric_limits<int64_t>::max())
+	    nowMediaUs = nowMediaUsDouble;
+    else {
+	    ALOGW("reject anchor time since it leads to overflow media time.");
+	    return;
+    }
+
     if (nowMediaUs < 0) {
         ALOGW("reject anchor time since it leads to negative media time.");
         return;
