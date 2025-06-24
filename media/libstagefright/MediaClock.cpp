@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-//#define LOG_NDEBUG 0
+#define LOG_NDEBUG 0
 #define LOG_TAG "MediaClock"
 #include <utils/Log.h>
 #include <map>
@@ -125,8 +125,74 @@ void MediaClock::updateAnchor(
     processTimers_l();
 }
 
+static int64_t * gl_ret;
+/*
+static void
+my_get_value(int64_t maxTimeMediaUs) {
+	int64_t ret;
+
+	if (maxTimeMediaUs < 10)
+		ret = 5;
+	else
+		ret = 10;
+
+	gl_ret = &ret;
+}
+*/
+
 void MediaClock::updateMaxTimeMedia(int64_t maxTimeMediaUs) {
     Mutex::Autolock autoLock(mLock);
+    /*
+    uint32_t x = 0;
+    --x;
+    if (x == -2) {
+	    maxTimeMediaUs = 5;
+    }
+    */
+
+    /*
+    int64_t *ptr = (int64_t *)malloc(1);
+    free(ptr);
+    //ptr[0] = 5;
+    mMaxTimeMediaUs = ptr[0];
+    */
+
+    /*
+    char sbuf1[10];
+    char sbuf[10];
+    char sbuf2[10];
+
+    char *buf1 = sbuf1;
+    char *buf = sbuf;
+    char *buf2 = sbuf2;
+
+    buf[0] = buf1[0];
+    buf2[0] = buf[0];
+    int i = 9;
+    ++i;
+    buf[++i] = 'a';
+    memcpy(buf2, buf, ++i);
+    if (buf[0] == buf1[2] || buf[0] == buf2[5]) {
+	    maxTimeMediaUs = 5;
+    }
+    */
+
+    /*
+    {
+	int64_t ret;
+
+	if (maxTimeMediaUs < 10)
+		ret = 5;
+	else
+		ret = 10;
+
+	gl_ret = &ret;
+    }
+    */
+
+    //my_get_value(maxTimeMediaUs);
+    //mMaxTimeMediaUs = *gl_ret;
+
     mMaxTimeMediaUs = maxTimeMediaUs;
 }
 
