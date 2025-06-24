@@ -17,7 +17,7 @@
 #include <inttypes.h>
 #include <stdlib.h>
 
-//#define LOG_NDEBUG 0
+#define LOG_NDEBUG 0
 #define LOG_TAG "AudioSource"
 #include <utils/Log.h>
 

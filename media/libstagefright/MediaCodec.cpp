@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-//#define LOG_NDEBUG 0
+#define LOG_NDEBUG 0
 #include "hidl/HidlSupport.h"
 #define LOG_TAG "MediaCodec"
 #include <utils/Log.h>
@@ -25,6 +25,7 @@
 #include <random>
 #include <set>
 #include <string>
+#include <unistd.h>
 
 #include <C2Buffer.h>
 
@@ -2010,6 +2011,9 @@ void MediaCodec::statsBufferReceived(int64_t presentationUs, const sp<MediaCodec
 
     CHECK_NE(mState, UNINITIALIZED);
 
+    pid_t pid = getpid();
+    ALOGV("-- MediaCodec pid: %" PRId64 ": ", (int64_t)pid);
+		
     // NOTE: these were erroneously restricted to video encoders, but we want them for all
     // codecs.
     if (android::media::codec::provider_->subsession_metrics()
