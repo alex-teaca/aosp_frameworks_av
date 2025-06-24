@@ -41,6 +41,9 @@ cc_defaults {
         users: "multi_user",
         fuzzed_code_usage: "shipped",
     },
+    sanitize: {
+        address: true,
+    },
 }
 
 cc_fuzz {

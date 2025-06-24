@@ -361,6 +361,7 @@ cc_library {
         "-Werror",
         "-Wno-error=deprecated-declarations",
         "-Wall",
+        "-O0",
     ],
 
     version_script: "exports.lds",
@@ -373,10 +374,22 @@ cc_library {
     },
 
     sanitize: {
+        address: true,
         cfi: true,
         misc_undefined: [
             "unsigned-integer-overflow",
             "signed-integer-overflow",
+            "alignment",
+            "bool",
+            "bounds",
+            "enum",
+            "float-cast-overflow",
+            "float-divide-by-zero",
+            "integer-divide-by-zero",
+            "null",
+            "shift-base",
+            "shift-exponent",
+            "vla-bound",
         ],
     },
 }
