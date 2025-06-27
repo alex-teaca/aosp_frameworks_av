@@ -102,10 +102,11 @@ void MediaClock::updateAnchor(
 
     int64_t nowMediaUs;
 
-    if (nowMediaUsDouble < (double)std::numeric_limits<int64_t>::max())
-	    nowMediaUs = nowMediaUsDouble;
+    if (nowMediaUsDouble < (double)std::numeric_limits<int64_t>::max() &&
+        nowMediaUsDouble >= (double)std::numeric_limits<int64_t>::min())
+	    nowMediaUs = (int64_t)nowMediaUsDouble;
     else {
-	    ALOGW("reject anchor time since it leads to overflow media time.");
+	    ALOGW("reject anchor time since double to int64_t cast leads to overflow.");
 	    return;
     }
 
